@@ -209,8 +209,9 @@ function addMember(boat, prefill) {
       </select>
     </div>
     <div class="crew-field cf-field">
-      <label>Codice Fiscale <span style="font-size:.65rem; color:rgba(255,255,255,.4); text-transform:none; letter-spacing:0">(calcolato automaticamente)</span></label>
-      <input type="text" placeholder="RSSMRA80A01H501U" data-field="cf" style="text-transform:uppercase" readonly />
+      <label>Codice Fiscale</label>
+      <input type="text" placeholder="RSSMRA80A01H501U" data-field="cf" style="text-transform:uppercase" />
+      <div data-cf-hint style="font-size:.72rem; margin-top:4px; min-height:16px;"></div>
     </div>
   `;
   container.appendChild(row);
@@ -220,7 +221,7 @@ function addMember(boat, prefill) {
       if (el && prefill[f]) el.value = prefill[f];
     });
   }
-  const cfTriggers = ['nome','cognome','sesso','nascita','comuneNascita'];
+  const cfTriggers = ['nome','cognome','sesso','nascita','comuneNascita','cf'];
   row.querySelectorAll('input, select').forEach(el => {
     const field = el.dataset.field;
     el.addEventListener('input', () => { if (cfTriggers.includes(field)) tryCalcCF(row); saveToStorage(boat); });
@@ -233,9 +234,20 @@ function tryCalcCF(row) {
   const g = f => (row.querySelector(`[data-field="${f}"]`)?.value || '').trim();
   const nome = g('nome'), cognome = g('cognome'), sesso = g('sesso');
   const nascita = g('nascita'), comune = g('comuneNascita');
-  if (!nome || !cognome || !sesso || !nascita || !comune) return;
-  const cf = calcolaCodiceFiscale(cognome, nome, sesso, nascita, comune);
-  if (cf) { const cfEl = row.querySelector('[data-field="cf"]'); if (cfEl) cfEl.value = cf; }
+  const hint = row.querySelector('[data-cf-hint]');
+  if (!nome || !cognome || !sesso || !nascita || !comune) { if (hint) hint.textContent = ''; return; }
+  const calcolato = calcolaCodiceFiscale(cognome, nome, sesso, nascita, comune);
+  if (!calcolato) { if (hint) hint.textContent = ''; return; }
+  const cfEl = row.querySelector('[data-field="cf"]');
+  const inserito = (cfEl?.value || '').trim().toUpperCase();
+  if (!inserito) {
+    if (cfEl) cfEl.value = calcolato;
+    if (hint) { hint.textContent = '✅ CF calcolato automaticamente — verificalo'; hint.style.color = 'rgba(200,168,75,.9)'; }
+  } else if (inserito === calcolato) {
+    if (hint) { hint.textContent = '✅ Codice fiscale corretto'; hint.style.color = '#25D366'; }
+  } else {
+    if (hint) { hint.textContent = '⚠️ Non corrisponde al calcolato: ' + calcolato; hint.style.color = '#ffb347'; }
+  }
 }
 
 function calcolaCodiceFiscale(cognome, nome, sesso, nascitaISO, luogo) {
