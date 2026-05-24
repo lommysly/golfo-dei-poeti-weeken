@@ -283,7 +283,7 @@ function tryCalcCF(row) {
   const inserito = (cfEl?.value || '').trim().toUpperCase();
   if (!inserito) {
     if (cfEl) cfEl.value = calcolato;
-    if (hint) { hint.textContent = '✅ CF calcolato automaticamente — verificalo'; hint.style.color = 'rgba(200,168,75,.9)'; }
+    if (hint) { hint.textContent = '✅ CF calcolato automaticamente — verificalo'; hint.style.color = 'rgba(42,159,214,.9)'; }
   } else if (inserito === calcolato) {
     if (hint) { hint.textContent = '✅ Codice fiscale corretto'; hint.style.color = '#25D366'; }
   } else {

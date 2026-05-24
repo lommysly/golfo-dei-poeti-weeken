@@ -5,29 +5,29 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ocean:       #1a2f1a;
-  --ocean-mid:   #2d4a1e;
-  --ocean-light: #3d6b2a;
-  --turq:        #c8a84b;
-  --turq-light:  #e0c46a;
-  --sand:        #f5edd6;
-  --sand-dark:   #e8d5a3;
+  --ocean:       #0b1f3a;
+  --ocean-mid:   #0d2d52;
+  --ocean-light: #1a4a7a;
+  --turq:        #2a9fd6;
+  --turq-light:  #4dbde8;
+  --sand:        #f0f6fc;
+  --sand-dark:   #d6e8f5;
   --white:       #FFFFFF;
-  --sunset:      #b85c2a;
-  --sunset-warm: #d4763a;
-  --text:        #1a1a0d;
-  --text-mid:    #3d3820;
-  --text-light:  #7a6e4a;
-  --bg-light:    #faf6ed;
+  --sunset:      #1565c0;
+  --sunset-warm: #1976d2;
+  --text:        #0b1f3a;
+  --text-mid:    #1e3a5f;
+  --text-light:  #4a7a9b;
+  --bg-light:    #f5f9fd;
 
   --r-lg: 24px;
   --r-md: 16px;
   --r-sm: 10px;
   --r-xs: 6px;
 
-  --sh-card:  0 16px 48px rgba(26,47,26,.12), 0 4px 16px rgba(26,47,26,.07);
-  --sh-hover: 0 28px 72px rgba(26,47,26,.2),  0 8px 28px rgba(26,47,26,.12);
-  --sh-turq:  0 8px 32px rgba(200,168,75,.4);
+  --sh-card:  0 16px 48px rgba(11,31,58,.12), 0 4px 16px rgba(11,31,58,.07);
+  --sh-hover: 0 28px 72px rgba(11,31,58,.2),  0 8px 28px rgba(11,31,58,.12);
+  --sh-turq:  0 8px 32px rgba(42,159,214,.4);
 
   --ease: cubic-bezier(.4,0,.2,1);
   --ease-out: cubic-bezier(0,.55,.45,1);
@@ -1426,7 +1426,7 @@ body {
 .gal-item::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(26,47,26,.55) 0%, transparent 60%);
+  background: linear-gradient(to top, rgba(11,31,58,.55) 0%, transparent 60%);
   transition: opacity .4s var(--ease);
 }
 .gal-item:hover::after { opacity: .3; }
