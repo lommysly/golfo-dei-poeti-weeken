@@ -237,7 +237,10 @@ function tryCalcCF(row) {
   const hint = row.querySelector('[data-cf-hint]');
   if (!nome || !cognome || !sesso || !nascita || !comune) { if (hint) hint.textContent = ''; return; }
   const calcolato = calcolaCodiceFiscale(cognome, nome, sesso, nascita, comune);
-  if (!calcolato) { if (hint) hint.textContent = ''; return; }
+  if (!calcolato) {
+    if (hint) { hint.textContent = '⚠️ Comune non trovato — inserisci il CF manualmente'; hint.style.color = '#ffb347'; }
+    return;
+  }
   const cfEl = row.querySelector('[data-field="cf"]');
   const inserito = (cfEl?.value || '').trim().toUpperCase();
   if (!inserito) {
@@ -258,6 +261,7 @@ function calcolaCodiceFiscale(cognome, nome, sesso, nascitaISO, luogo) {
     const mesi = 'ABCDEHLMPRST';
     const codData = String(year).slice(-2) + mesi[month - 1] + (sesso === 'M' ? String(day).padStart(2,'0') : String(day + 40).padStart(2,'0'));
     const codLuogo = _cfLuogo(luogo);
+    if (!codLuogo) return null;
     const base = (codCognome + codNome + codData + codLuogo).toUpperCase();
     if (base.length !== 15) return null;
     return base + _cfControllo(base);
@@ -274,7 +278,7 @@ function _cfNome(s) {
   return (cons + s.replace(/[^AEIOU]/g,'') + 'XXX').slice(0,3);
 }
 const _BELFIORE = {};
-function _cfLuogo(luogo) { return _BELFIORE[luogo.toUpperCase().trim()] || 'X000'; }
+function _cfLuogo(luogo) { return _BELFIORE[luogo.toUpperCase().trim()] || null; }
 function _cfControllo(base) {
   const odd=[1,0,5,7,9,13,15,17,19,21,2,4,18,20,11,3,6,8,12,14,16,10,22,25,24,23];
   let s=0;
