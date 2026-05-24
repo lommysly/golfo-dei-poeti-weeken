@@ -1003,12 +1003,23 @@ body {
 .crew-form-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 700; color: #fff; }
 
 .crew-member-row {
-  display: grid; grid-template-columns: repeat(4, 1fr) 40px; gap: 12px; align-items: end;
-  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
-  border-radius: var(--r-md); padding: 20px; margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  align-items: end;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r-md);
+  padding: 20px;
+  margin-bottom: 14px;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
 }
-.crew-field { display: flex; flex-direction: column; gap: 6px; }
+.crew-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .cf-field { grid-column: span 2; }
+.crew-field-full { grid-column: span 4; }
 .crew-field label { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); }
 .crew-field input, .crew-field select {
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
