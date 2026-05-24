@@ -1382,6 +1382,18 @@ body {
   .barca-visual { height: 180px; }
 }
 
+/* ──────────────────── CALETTE GRID ──────────────────── */
+@media (max-width: 768px) {
+  .calette [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+@media (max-width: 480px) {
+  .calette [style*="grid-template-columns:repeat(3,1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 /* ──────────────────── GALLERIA FOTO ──────────────────── */
 .galleria { padding: 80px 0; background: var(--bg-light); }
 .galleria-grid {
