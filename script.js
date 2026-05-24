@@ -25,11 +25,10 @@ async function loadCrewStatus() {
       if (countEl) countEl.textContent = '';
       return;
     }
-    const TOTAL = 9; // totale membri equipaggio Atlantica
     listEl.innerHTML = members.map(m => {
       const ruolo = m.ruolo || '';
       const icon = ruolo.toLowerCase().includes('skipper') ? '⚓' : ruolo.toLowerCase().includes('co') ? '🧭' : '⛵';
-      return `<div style="display:flex; align-items:center; gap:8px; background:rgba(28,167,168,.12); border:1px solid rgba(28,167,168,.25); border-radius:10px; padding:8px 14px;">
+      return `<div style="display:flex; align-items:center; gap:8px; background:rgba(42,159,214,.12); border:1px solid rgba(42,159,214,.25); border-radius:10px; padding:8px 14px;">
         <span style="font-size:1rem;">${icon}</span>
         <div>
           <div style="font-size:.88rem; font-weight:600; color:#fff;">${m.nome}</div>
@@ -37,7 +36,7 @@ async function loadCrewStatus() {
         </div>
       </div>`;
     }).join('');
-    if (countEl) countEl.textContent = `${members.length} su ${TOTAL} membri hanno compilato`;
+    if (countEl) countEl.textContent = `${members.length} ${members.length === 1 ? 'membro ha' : 'membri hanno'} compilato`;
   } catch(e) {
     listEl.innerHTML = '<span style="color:rgba(255,255,255,.3); font-size:.85rem;">Impossibile caricare i dati.</span>';
   }
