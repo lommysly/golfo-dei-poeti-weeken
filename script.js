@@ -107,7 +107,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
 /* ── Crew List ──────────────────────────────────── */
 let memberCount = { atlantica: 0 };
-const CREW_FIELDS = ['nome','nascita','luogo','nazionalita','residenza','cap','tipoDoc','numDoc','scadDoc','ruolo','cf'];
+const CREW_FIELDS = ['nome','cognome','sesso','nascita','comuneNascita','provNascita','nazionalita','via','citta','prov','cap','tipoDoc','numDoc','scadDoc','ruolo','cf'];
 
 function saveToStorage(boat) {
   const container = document.getElementById('members-' + boat);
@@ -135,28 +135,52 @@ function addMember(boat, prefill) {
   row.id = `member-${boat}-${idx}`;
   row.innerHTML = `
     <div class="crew-field">
-      <label>Nome e Cognome</label>
-      <input type="text" placeholder="Mario Rossi" data-field="nome" />
+      <label>Nome <span style="color:#e05">*</span></label>
+      <input type="text" placeholder="Mario" data-field="nome" autocomplete="given-name" />
     </div>
     <div class="crew-field">
-      <label>Data di Nascita</label>
+      <label>Cognome <span style="color:#e05">*</span></label>
+      <input type="text" placeholder="Rossi" data-field="cognome" autocomplete="family-name" />
+    </div>
+    <div class="crew-field">
+      <label>Sesso <span style="color:#e05">*</span></label>
+      <select data-field="sesso">
+        <option value="" disabled selected>— M / F —</option>
+        <option value="M">Maschio</option>
+        <option value="F">Femmina</option>
+      </select>
+    </div>
+    <div class="crew-field">
+      <label>Data di Nascita <span style="color:#e05">*</span></label>
       <input type="date" data-field="nascita" />
     </div>
     <div class="crew-field">
-      <label>Luogo di Nascita</label>
-      <input type="text" placeholder="Roma" data-field="luogo" />
+      <label>Comune di Nascita <span style="color:#e05">*</span></label>
+      <input type="text" placeholder="Roma" data-field="comuneNascita" />
+    </div>
+    <div class="crew-field">
+      <label>Prov. Nascita</label>
+      <input type="text" placeholder="RM" data-field="provNascita" maxlength="3" style="text-transform:uppercase" />
     </div>
     <div class="crew-field">
       <label>Nazionalità</label>
       <input type="text" placeholder="Italiana" data-field="nazionalita" />
     </div>
+    <div class="crew-field cf-field">
+      <label>Via / Indirizzo di Residenza</label>
+      <input type="text" placeholder="Via Roma 1" data-field="via" autocomplete="street-address" />
+    </div>
     <div class="crew-field">
-      <label>Residenza</label>
-      <input type="text" placeholder="Via Roma 1, 00100 Roma" data-field="residenza" />
+      <label>Città di Residenza</label>
+      <input type="text" placeholder="Roma" data-field="citta" autocomplete="address-level2" />
+    </div>
+    <div class="crew-field">
+      <label>Provincia Residenza</label>
+      <input type="text" placeholder="RM" data-field="prov" maxlength="3" style="text-transform:uppercase" />
     </div>
     <div class="crew-field">
       <label>CAP</label>
-      <input type="text" placeholder="00100" data-field="cap" maxlength="10" />
+      <input type="text" placeholder="00100" data-field="cap" maxlength="5" inputmode="numeric" />
     </div>
     <div class="crew-field">
       <label>Tipo Documento <span style="color:#e05">*</span></label>
@@ -169,7 +193,7 @@ function addMember(boat, prefill) {
     </div>
     <div class="crew-field">
       <label>N° Documento <span style="color:#e05">*</span></label>
-      <input type="text" placeholder="AA0000000" data-field="numDoc" />
+      <input type="text" placeholder="AA0000000" data-field="numDoc" style="text-transform:uppercase" />
     </div>
     <div class="crew-field">
       <label>Scadenza Documento</label>
@@ -185,8 +209,8 @@ function addMember(boat, prefill) {
       </select>
     </div>
     <div class="crew-field cf-field">
-      <label>Codice Fiscale</label>
-      <input type="text" placeholder="RSSMRA80A01H501U" data-field="cf" style="text-transform:uppercase" />
+      <label>Codice Fiscale <span style="font-size:.65rem; color:rgba(255,255,255,.4); text-transform:none; letter-spacing:0">(calcolato automaticamente)</span></label>
+      <input type="text" placeholder="RSSMRA80A01H501U" data-field="cf" style="text-transform:uppercase" readonly />
     </div>
   `;
   container.appendChild(row);
@@ -196,11 +220,81 @@ function addMember(boat, prefill) {
       if (el && prefill[f]) el.value = prefill[f];
     });
   }
+  const cfTriggers = ['nome','cognome','sesso','nascita','comuneNascita'];
   row.querySelectorAll('input, select').forEach(el => {
-    el.addEventListener('input', () => saveToStorage(boat));
-    el.addEventListener('change', () => saveToStorage(boat));
+    const field = el.dataset.field;
+    el.addEventListener('input', () => { if (cfTriggers.includes(field)) tryCalcCF(row); saveToStorage(boat); });
+    el.addEventListener('change', () => { if (cfTriggers.includes(field)) tryCalcCF(row); saveToStorage(boat); });
   });
 }
+
+/* ── Calcolo Codice Fiscale ─────────────────────── */
+function tryCalcCF(row) {
+  const g = f => (row.querySelector(`[data-field="${f}"]`)?.value || '').trim();
+  const nome = g('nome'), cognome = g('cognome'), sesso = g('sesso');
+  const nascita = g('nascita'), comune = g('comuneNascita');
+  if (!nome || !cognome || !sesso || !nascita || !comune) return;
+  const cf = calcolaCodiceFiscale(cognome, nome, sesso, nascita, comune);
+  if (cf) { const cfEl = row.querySelector('[data-field="cf"]'); if (cfEl) cfEl.value = cf; }
+}
+
+function calcolaCodiceFiscale(cognome, nome, sesso, nascitaISO, luogo) {
+  try {
+    const codCognome = _cfConsonanti(cognome, 3);
+    const codNome    = _cfNome(nome);
+    const [year, month, day] = nascitaISO.split('-').map(Number);
+    const mesi = 'ABCDEHLMPRST';
+    const codData = String(year).slice(-2) + mesi[month - 1] + (sesso === 'M' ? String(day).padStart(2,'0') : String(day + 40).padStart(2,'0'));
+    const codLuogo = _cfLuogo(luogo);
+    const base = (codCognome + codNome + codData + codLuogo).toUpperCase();
+    if (base.length !== 15) return null;
+    return base + _cfControllo(base);
+  } catch(e) { return null; }
+}
+function _cfConsonanti(s, n) {
+  s = s.toUpperCase().replace(/[^A-Z]/g,'');
+  return (s.replace(/[AEIOU]/g,'') + s.replace(/[^AEIOU]/g,'') + 'XXX').slice(0,n);
+}
+function _cfNome(s) {
+  s = s.toUpperCase().replace(/[^A-Z]/g,'');
+  const cons = s.replace(/[AEIOU]/g,'');
+  if (cons.length >= 4) return cons[0]+cons[2]+cons[3];
+  return (cons + s.replace(/[^AEIOU]/g,'') + 'XXX').slice(0,3);
+}
+const _BELFIORE = {};
+function _cfLuogo(luogo) { return _BELFIORE[luogo.toUpperCase().trim()] || 'X000'; }
+function _cfControllo(base) {
+  const odd=[1,0,5,7,9,13,15,17,19,21,2,4,18,20,11,3,6,8,12,14,16,10,22,25,24,23];
+  let s=0;
+  for(let i=0;i<15;i++){const c=base.charCodeAt(i);const v=c>=48&&c<=57?c-48:c-65;s+=(i%2===0)?odd[v]:v;}
+  return String.fromCharCode(65+(s%26));
+}
+(function(){
+  const T={
+    'AGRIGENTO':'G273','ALESSANDRIA':'A182','ANCONA':'A271','AOSTA':'A326','AREZZO':'A390',
+    'ASCOLI PICENO':'A462','ASTI':'A479','AVELLINO':'A509','BARI':'A662','BELLUNO':'A757',
+    'BENEVENTO':'A783','BERGAMO':'A794','BIELLA':'A859','BOLOGNA':'A944','BOLZANO':'A952',
+    'BRESCIA':'B157','BRINDISI':'B180','CAGLIARI':'B354','CAMPOBASSO':'B519','CASERTA':'B963',
+    'CATANIA':'C351','CATANZARO':'C352','CHIETI':'C469','COMO':'C933','COSENZA':'D086',
+    'CREMONA':'D150','CUNEO':'D205','FERRARA':'D548','FIRENZE':'D612','FOGGIA':'D643',
+    'FROSINONE':'D810','GENOVA':'D969','GROSSETO':'E202','IMPERIA':'E290','LA SPEZIA':'E463',
+    'LATINA':'E472','LECCE':'E506','LECCO':'E507','LIVORNO':'E625','LUCCA':'E715',
+    'MACERATA':'E783','MANTOVA':'E897','MASSA':'F023','MATERA':'F052','MESSINA':'F158',
+    'MILANO':'F205','MODENA':'F257','MONZA':'F704','NAPOLI':'F839','NOVARA':'F952',
+    'PADOVA':'G224','PALERMO':'G273','PARMA':'G337','PAVIA':'G388','PERUGIA':'G478',
+    'PESCARA':'G482','PIACENZA':'G535','PISA':'G702','PISTOIA':'G713','POTENZA':'G942',
+    'PRATO':'G999','RAGUSA':'H163','RAVENNA':'H199','REGGIO CALABRIA':'H224',
+    'REGGIO EMILIA':'H236','RIETI':'H282','RIMINI':'H294','ROMA':'H501','ROVIGO':'H620',
+    'SALERNO':'H703','SASSARI':'I452','SAVONA':'I480','SIENA':'I726','SIRACUSA':'I754',
+    'SONDRIO':'I829','TARANTO':'L049','TERAMO':'L103','TERNI':'L117','TORINO':'L219',
+    'TRAPANI':'L331','TRENTO':'L378','TREVISO':'L407','TRIESTE':'L424','UDINE':'L483',
+    'VARESE':'L682','VENEZIA':'L736','VERONA':'L781','VICENZA':'L840','VITERBO':'M082',
+    'LERICI':'E542','PORTOVENERE':'G927','SARZANA':'I449','SPEZIA':'E463',
+    'AMEGLIA':'A259','ARCOLA':'A370','BOLANO':'A930','FOLLO':'D655',
+    'SANTO STEFANO DI MAGRA':'I367','VEZZANO LIGURE':'L820'
+  };
+  Object.assign(_BELFIORE,T);
+})();
 
 function removeMember(boat, idx) {
   const row = document.getElementById(`member-${boat}-${idx}`);
@@ -229,13 +323,19 @@ async function saveMemberToSheets(boat) {
   const row = rows[0];
   const get = f => row.querySelector(`[data-field="${f}"]`)?.value.trim() || '';
   const nome    = get('nome');
+  const cognome = get('cognome');
+  const sesso   = get('sesso');
   const nascita = get('nascita');
+  const comuneNascita = get('comuneNascita');
   const numDoc  = get('numDoc');
   const tipoDoc = get('tipoDoc');
   const ruolo   = get('ruolo');
   const mancanti = [];
-  if (!nome)    mancanti.push('Nome e Cognome');
+  if (!nome)    mancanti.push('Nome');
+  if (!cognome) mancanti.push('Cognome');
+  if (!sesso)   mancanti.push('Sesso');
   if (!nascita) mancanti.push('Data di Nascita');
+  if (!comuneNascita) mancanti.push('Comune di Nascita');
   if (!tipoDoc) mancanti.push('Tipo Documento');
   if (!numDoc)  mancanti.push('N° Documento');
   if (!ruolo)   mancanti.push('Ruolo a Bordo');
@@ -247,10 +347,14 @@ async function saveMemberToSheets(boat) {
   const btn = document.getElementById('btnSalva-' + boat);
   if (btn) { btn.textContent = 'Salvataggio...'; btn.disabled = true; }
 
+  const nomeCompleto = nome + ' ' + cognome;
   const data = {
-    boat, nome, nascita: get('nascita'), luogo: get('luogo'),
-    nazionalita: get('nazionalita'), residenza: get('residenza'),
-    cap: get('cap'), tipoDoc: get('tipoDoc'), numDoc: get('numDoc'),
+    boat,
+    nome: nomeCompleto, cognome, sesso,
+    nascita, luogo: comuneNascita + (get('provNascita') ? ' (' + get('provNascita') + ')' : ''),
+    nazionalita: get('nazionalita'),
+    residenza: [get('via'), get('citta'), get('prov')].filter(Boolean).join(', '),
+    cap: get('cap'), tipoDoc, numDoc,
     scadDoc: get('scadDoc'), ruolo: get('ruolo'), cf: get('cf'),
     regolaAccettata: true
   };
