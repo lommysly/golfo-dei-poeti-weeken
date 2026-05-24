@@ -1,33 +1,33 @@
 /* ══════════════════════════════════════════════════
-   CORSICA SAILING EXPERIENCE — Premium Stylesheet
+   GOLFO DEI POETI WEEKEND — Stylesheet
    ══════════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --ocean:       #0B3C5D;
-  --ocean-mid:   #145480;
-  --ocean-light: #1a7aaa;
-  --turq:        #1CA7A8;
-  --turq-light:  #4fc9ca;
-  --sand:        #daeef3;
-  --sand-dark:   #b8dde4;
+  --ocean:       #1a2f1a;
+  --ocean-mid:   #2d4a1e;
+  --ocean-light: #3d6b2a;
+  --turq:        #c8a84b;
+  --turq-light:  #e0c46a;
+  --sand:        #f5edd6;
+  --sand-dark:   #e8d5a3;
   --white:       #FFFFFF;
-  --sunset:      #0e7490;
-  --sunset-warm: #06b6d4;
-  --text:        #0d1f2d;
-  --text-mid:    #2c4a62;
-  --text-light:  #7a9cb8;
-  --bg-light:    #f0f7fa;
+  --sunset:      #b85c2a;
+  --sunset-warm: #d4763a;
+  --text:        #1a1a0d;
+  --text-mid:    #3d3820;
+  --text-light:  #7a6e4a;
+  --bg-light:    #faf6ed;
 
   --r-lg: 24px;
   --r-md: 16px;
   --r-sm: 10px;
   --r-xs: 6px;
 
-  --sh-card:  0 16px 48px rgba(11,60,93,.12), 0 4px 16px rgba(11,60,93,.07);
-  --sh-hover: 0 28px 72px rgba(11,60,93,.2),  0 8px 28px rgba(11,60,93,.12);
-  --sh-turq:  0 8px 32px rgba(28,167,168,.4);
+  --sh-card:  0 16px 48px rgba(26,47,26,.12), 0 4px 16px rgba(26,47,26,.07);
+  --sh-hover: 0 28px 72px rgba(26,47,26,.2),  0 8px 28px rgba(26,47,26,.12);
+  --sh-turq:  0 8px 32px rgba(200,168,75,.4);
 
   --ease: cubic-bezier(.4,0,.2,1);
   --ease-out: cubic-bezier(0,.55,.45,1);
@@ -1380,4 +1380,53 @@ body {
 
   /* Barche */
   .barca-visual { height: 180px; }
+}
+
+/* ──────────────────── GALLERIA FOTO ──────────────────── */
+.galleria { padding: 80px 0; background: var(--bg-light); }
+.galleria-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 260px 260px;
+  gap: 12px;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.gal-item {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.gal-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,47,26,.55) 0%, transparent 60%);
+  transition: opacity .4s var(--ease);
+}
+.gal-item:hover::after { opacity: .3; }
+.gal-item:hover { transform: scale(1.02); }
+.gal-item { transition: transform .5s var(--ease); }
+.gal-label {
+  position: absolute; bottom: 14px; left: 16px; z-index: 1;
+  color: #fff; font-size: .75rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+.gal-item.large { grid-row: span 2; }
+
+@media (max-width: 768px) {
+  .galleria-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px 200px;
+  }
+  .gal-item.large { grid-row: span 1; grid-column: span 2; }
+}
+@media (max-width: 480px) {
+  .galleria-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 200px);
+  }
+  .gal-item.large { grid-column: 1; }
 }
