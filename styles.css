@@ -1019,6 +1019,7 @@ body {
 .crew-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .cf-field { grid-column: span 2; }
 .crew-field-full { grid-column: span 4; }
+.crew-field-ruolo { grid-column: span 2; }
 .crew-field label { font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.45); }
 .crew-field input, .crew-field select {
   background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
