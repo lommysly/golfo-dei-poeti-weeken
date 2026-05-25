@@ -500,7 +500,14 @@ const SHEET_TABS = {
 function adminDownloadPDF(boat) {
   const pwd = prompt('Password amministratore:');
   if (pwd !== ADMIN_PASSWORDS[boat]) { alert('Password errata.'); return; }
-  window.open(SHEET_TABS[boat] || SHEET_TABS.atlantica, '_blank');
+  const url = SHEET_TABS[boat] || SHEET_TABS.atlantica;
+  const a = document.createElement('a');
+  a.href = url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(() => a.remove(), 1000);
 }
 
 /* ── Genera PDF unico con tutti i membri ────────── */
