@@ -107,153 +107,124 @@
 
 <script>
 const CAMBUSA_PASSWORD = 'Atlantica';
-const CAMBUSA_KEY = 'cambusa_gdp_state_v1';
-const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzoG2zUEAtI0p4h-fWTFBLsu_-3qnlqpeTCyRt3bNPU9mpWDWlXZJF_OgkMJV62VpbV/exec';
+const CAMBUSA_KEY     = 'cambusa_gdp_v2';
+const SHEETS_URL      = 'https://script.google.com/macros/s/AKfycbzoG2zUEAtI0p4h-fWTFBLsu_-3qnlqpeTCyRt3bNPU9mpWDWlXZJF_OgkMJV62VpbV/exec';
 
-const CAMBUSA = [
-  { id:'base', icon:'🧂', title:'Base indispensabile', items:[
-    ['sale-grosso','Sale grosso','q.b.',''], ['olio','Olio EVO','1 bottiglia',''], ['pepe','Pepe nero','1 confezione',''], ['limoni','Limoni','4',''], ['aglio','Aglio','1 testa',''], ['carta-argento','Carta argento','1 rotolo',''], ['sacchetti-piccoli','Sacchetti piccoli','10',''], ['sacchetti-neri','Sacchetti neri','5','']
-  ]},
-  { id:'colazione', icon:'☕', title:'Colazione', items:[
-    ['latte','Latte LC','2 litri','2 mattine'], ['caffe','Caffè','1 confezione',''], ['biscotti','Biscotti','2 pacchi',''], ['brioche','Brioche / cornetti','6–8','per sabato mattina'], ['yogurt','Yogurt','4','']
-  ]},
-  { id:'pranzo', icon:'🥗', title:'Pranzo e merende', items:[
-    ['insalata','Rucola / insalata mista','2 buste',''], ['pomodorini','Pomodorini','500g',''], ['mozzarella','Mozzarella','2',''], ['crackers','Crackers','2 pacchi',''], ['grissini','Grissini','1 pacco',''], ['pane','Pane a cassetta','1',''], ['frutta-pranzo','Frutta fresca','assortita','pesche, mele']
-  ]},
-  { id:'cena', icon:'🍝', title:'Cena a bordo', items:[
-    ['pasta','Pasta','500g','1 cena a bordo'], ['salsa','Salsa di pomodoro','1 barattolo',''], ['tonno','Tonno','4 scatolette',''], ['pesto','Pesto','1 vasetto',''], ['pancetta','Pancetta cubetti','1 confezione',''], ['uova','Uova','6','']
-  ]},
-  { id:'aperitivo', icon:'🍷', title:'Aperitivo al tramonto', items:[
-    ['patatine','Patatine','3 sacchetti',''], ['pistacchi','Pistacchi','200g',''], ['taralli','Taralli','1 pacco',''], ['olive-jar','Olive','1 vasetto',''], ['crudo','Crudo / bresaola','200g',''], ['formaggi','Formaggi misti','200g','']
-  ]},
-  { id:'bevande', icon:'🥤', title:'Bevande', items:[
-    ['acqua','Acqua','5 cartoni',''], ['birra','Birra','20 lattine · Corona/Peroni',''], ['vino-bianco','Vino bianco','2 bottiglie',''], ['prosecco','Prosecco','2 bottiglie','aperitivo'], ['gin','Gin','1',''], ['tonica','Tonica / Fever-Tree','6 lattine',''], ['succo','Succo di frutta','3','']
-  ]},
-  { id:'freschi-extra', icon:'🧀', title:'Affettati e freschi', items:[
-    ['salame','Salame','200g',''], ['burro','Burro','1 panetto',''], ['grana','Grana','200g a pezzetto','']
-  ]},
-  { id:'scatolame', icon:'🥫', title:'Scorte e condimenti', items:[
-    ['mais','Mais','1 barattolo',''], ['capperi','Capperi','1 vasetto',''], ['acciughe','Acciughe','1 vasetto',''], ['olio-piccante','Olio piccante','1','opzionale']
-  ]},
-  { id:'pulizie', icon:'🧽', title:'Pulizie e dotazioni', items:[
-    ['bio-piatti','Bio per piatti','1 confezione',''], ['scottex','Scottex','2 rotoloni',''], ['carta-igienica','Carta igienica','6 rotoli',''], ['spugnette','Spugnette','2',''], ['sacchi-immondizia','Sacchi immondizia','10','']
-  ]}
-];
+const CAT_ICONS = {
+  'Cucina':'🧂','Verdure':'🥬','Frutta':'🍎','Pasta/Cereali':'🍝','Carne/Pesce':'🥩',
+  'Freschi':'🧀','Affettati':'🥩','Scatolame':'🥫','Colazione':'☕','Varie':'🧺',
+  'Bevande':'🥤','Pulizie':'🧽','Dotazioni':'⚓','Menu':'🍽️'
+};
 
+let CAMBUSA = [];
 let cambusaState = {};
-let syncTimeout = null;
+
+function slugify(s) {
+  return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').replace(/-+/g,'-').replace(/^-|-$/g,'');
+}
+function setSyncStatus(state, text) {
+  const el = document.getElementById('kbSyncStatus');
+  el.className = 'kb-sync ' + state; el.textContent = text;
+}
+function showMsg(msg) {
+  document.getElementById('kbGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:50px 20px;color:rgba(255,255,255,.5);line-height:1.8">${msg}</div>`;
+}
 
 function unlockCambusa() {
   const pwd = document.getElementById('kbPwd').value;
-  if (pwd !== CAMBUSA_PASSWORD) { document.getElementById('kbErr').style.display = 'block'; return; }
-  document.getElementById('kbLock').style.display = 'none';
-  document.getElementById('kbContent').style.display = 'block';
+  if (pwd !== CAMBUSA_PASSWORD) { document.getElementById('kbErr').style.display='block'; return; }
+  document.getElementById('kbLock').style.display='none';
+  document.getElementById('kbContent').style.display='block';
   loadCambusa();
 }
 
 function loadCambusa() {
-  try { cambusaState = JSON.parse(localStorage.getItem(CAMBUSA_KEY)) || {}; } catch(e) { cambusaState = {}; }
-  if (SHEETS_URL) {
-    setSyncStatus('busy', '↻ Caricamento...');
-    fetchFromSheets();
-  } else {
-    setSyncStatus('local', '💾 Locale');
-    renderCambusa();
-  }
-}
-
-function fetchFromSheets() {
-  const cb = 'cb_' + Date.now();
+  setSyncStatus('busy', '↻ Caricamento...');
+  showMsg('Caricamento lista dal foglio…');
+  const cb = 'cbList_' + Date.now();
+  const tm = setTimeout(() => { delete window[cb]; setSyncStatus('local','⚠️ Timeout'); showMsg('Timeout — riprova.'); }, 14000);
   window[cb] = function(data) {
-    delete window[cb];
-    if (data && typeof data === 'object') {
-      cambusaState = data;
+    clearTimeout(tm); delete window[cb];
+    if (Array.isArray(data) && data.length) {
+      CAMBUSA = data;
+      cambusaState = {};
+      data.forEach(sec => sec.items.forEach(it => { if (it.checked) cambusaState[it.id] = true; }));
       localStorage.setItem(CAMBUSA_KEY, JSON.stringify(cambusaState));
+      setSyncStatus('ok', '☁️ Sincronizzato');
+      renderCambusa();
+    } else {
+      setSyncStatus('local', '⚠️ Lista vuota');
+      showMsg('Lista non ancora generata.<br>Apri il foglio Google → menu <strong>🧭 Cambusa → Calcola Spesa</strong>.');
     }
-    setSyncStatus('ok', '☁️ Sincronizzato');
-    renderCambusa();
   };
-  const script = document.createElement('script');
-  script.src = SHEETS_URL + '?action=get&callback=' + cb;
-  script.onerror = function() {
-    delete window[cb];
-    setSyncStatus('local', '⚠️ Solo locale');
-    renderCambusa();
-  };
-  document.head.appendChild(script);
+  const s = document.createElement('script');
+  s.src = SHEETS_URL + '?action=getList&callback=' + cb;
+  s.onerror = () => { clearTimeout(tm); delete window[cb]; setSyncStatus('local','⚠️ Errore'); showMsg('Impossibile raggiungere il foglio. Controlla la connessione.'); };
+  document.head.appendChild(s);
 }
 
-function pushToSheets(key, val) {
-  if (!SHEETS_URL) return;
-  const cb = 'cb_' + Date.now();
-  window[cb] = function() { delete window[cb]; setSyncStatus('ok', '☁️ Sincronizzato'); };
-  const script = document.createElement('script');
-  script.src = SHEETS_URL + '?action=set&id=' + encodeURIComponent(key) + '&val=' + val + '&callback=' + cb;
-  script.onerror = function() { delete window[cb]; setSyncStatus('local', '⚠️ Errore sync'); };
-  document.head.appendChild(script);
-}
-
-function setSyncStatus(state, text) {
-  const el = document.getElementById('kbSyncStatus');
-  el.className = 'kb-sync ' + state;
-  el.textContent = text;
+function pushToSheets(id, val) {
+  const cb = 'cbSet_' + Date.now();
+  window[cb] = function() { delete window[cb]; setSyncStatus('ok','☁️ Sincronizzato'); };
+  const s = document.createElement('script');
+  s.src = SHEETS_URL + '?action=set&id=' + encodeURIComponent(id) + '&val=' + val + '&callback=' + cb;
+  s.onerror = () => { delete window[cb]; setSyncStatus('local','⚠️ Errore sync'); };
+  document.head.appendChild(s);
 }
 
 function saveCambusa() { localStorage.setItem(CAMBUSA_KEY, JSON.stringify(cambusaState)); }
 
 function renderCambusa() {
   const grid = document.getElementById('kbGrid');
+  if (!CAMBUSA.length) { showMsg('Lista vuota.'); updateProgress(); return; }
   grid.innerHTML = CAMBUSA.map(sec => {
-    const done = sec.items.filter(it => cambusaState[it[0]]).length;
-    return `<section class="kb-section"><div class="kb-section-head"><span class="emoji">${sec.icon}</span><h2>${sec.title}</h2><span class="kb-count" id="count-${sec.id}">${done}/${sec.items.length}</span></div><div class="kb-list">${sec.items.map(it => itemHtml(it)).join('')}</div></section>`;
+    const sid = slugify(sec.category);
+    const done = sec.items.filter(it => cambusaState[it.id]).length;
+    const icon = CAT_ICONS[sec.category] || '📦';
+    return `<section class="kb-section"><div class="kb-section-head"><span class="emoji">${icon}</span><h2>${sec.category}</h2><span class="kb-count" id="cnt-${sid}">${done}/${sec.items.length}</span></div><div class="kb-list">${sec.items.map(itemHtml).join('')}</div></section>`;
   }).join('');
   updateProgress();
 }
 
 function itemHtml(it) {
-  const done = !!cambusaState[it[0]];
-  return `<label class="kb-item${done ? ' done' : ''}" id="item-${it[0]}"><input type="checkbox" ${done ? 'checked' : ''} onchange="toggleItem('${it[0]}',this.checked)" /><span><span class="kb-item-name">${it[1]}</span>${it[3] ? `<span class="kb-note">${it[3]}</span>` : ''}</span><span class="kb-qty">${it[2] || ''}</span></label>`;
+  const done = !!cambusaState[it.id];
+  return `<label class="kb-item${done?' done':''}" id="item-${it.id}"><input type="checkbox" ${done?'checked':''} onchange="toggleItem('${it.id}',this.checked)"/><span class="kb-item-name">${it.nome}</span><span class="kb-qty">${it.qty||''}</span></label>`;
 }
 
 function toggleItem(id, checked) {
   cambusaState[id] = checked;
   saveCambusa();
-  const label = document.getElementById('item-' + id);
-  if (label) label.className = 'kb-item' + (checked ? ' done' : '');
-  updateSectionCount(id);
-  updateProgress();
-  if (SHEETS_URL) { setSyncStatus('busy', '↻ Salvataggio...'); pushToSheets(id, checked); }
-}
-
-function updateSectionCount(itemId) {
+  const el = document.getElementById('item-' + id);
+  if (el) el.classList.toggle('done', checked);
   CAMBUSA.forEach(sec => {
-    if (sec.items.find(it => it[0] === itemId)) {
-      const done = sec.items.filter(it => cambusaState[it[0]]).length;
-      const el = document.getElementById('count-' + sec.id);
-      if (el) el.textContent = done + '/' + sec.items.length;
+    if (sec.items.find(it => it.id === id)) {
+      const d = sec.items.filter(it => cambusaState[it.id]).length;
+      const cnt = document.getElementById('cnt-' + slugify(sec.category));
+      if (cnt) cnt.textContent = d + '/' + sec.items.length;
     }
   });
+  updateProgress();
+  setSyncStatus('busy','↻ Salvataggio…'); pushToSheets(id, checked);
 }
 
 function updateProgress() {
-  const all = CAMBUSA.reduce((s, sec) => s + sec.items.length, 0);
-  const done = CAMBUSA.reduce((s, sec) => s + sec.items.filter(it => cambusaState[it[0]]).length, 0);
-  document.getElementById('kbProgressLabel').textContent = done + ' / ' + all + ' completati';
-  document.getElementById('kbProgressFill').style.width = (all ? (done / all * 100) : 0) + '%';
+  const all  = CAMBUSA.reduce((s,sec) => s + sec.items.length, 0);
+  const done = CAMBUSA.reduce((s,sec) => s + sec.items.filter(it=>cambusaState[it.id]).length, 0);
+  const pct  = all ? Math.round(done/all*100) : 0;
+  document.getElementById('kbProgressLabel').textContent = done + ' / ' + all + ' completati (' + pct + '%)';
+  document.getElementById('kbProgressFill').style.width = pct + '%';
 }
 
 function resetCambusa() {
   if (!confirm('Azzerare tutte le spunte?')) return;
-  cambusaState = {};
-  saveCambusa();
-  if (SHEETS_URL) {
-    setSyncStatus('busy', '↻ Azzeramento...');
-    const cb = 'cb_reset_' + Date.now();
-    window[cb] = function() { delete window[cb]; setSyncStatus('ok', '☁️ Sincronizzato'); };
-    const script = document.createElement('script');
-    script.src = SHEETS_URL + '?action=reset&callback=' + cb;
-    document.head.appendChild(script);
-  }
+  cambusaState = {}; saveCambusa();
+  setSyncStatus('busy','↻ Azzeramento…');
+  const cb = 'cbReset_' + Date.now();
+  window[cb] = () => { delete window[cb]; setSyncStatus('ok','☁️ Sincronizzato'); };
+  const s = document.createElement('script');
+  s.src = SHEETS_URL + '?action=reset&callback=' + cb;
+  document.head.appendChild(s);
   renderCambusa();
 }
 
