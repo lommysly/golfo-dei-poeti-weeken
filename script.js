@@ -19,7 +19,7 @@ async function loadCrewStatus() {
   try {
     const res = await fetch(SHEETS_URL + '?boat=atlantica');
     const json = await res.json();
-    const members = (json.members || []).filter(m => (m.nomeOnly || m.nome || '').trim());
+    const members = (json.members || []).filter(m => m.nome && m.nome.trim());
     if (members.length === 0) {
       listEl.innerHTML = '<span style="color:rgba(255,255,255,.3); font-size:.85rem;">Nessuno ha ancora compilato.</span>';
       if (countEl) countEl.textContent = '';
@@ -31,7 +31,7 @@ async function loadCrewStatus() {
       return `<div style="display:flex; align-items:center; gap:8px; background:rgba(42,159,214,.12); border:1px solid rgba(42,159,214,.25); border-radius:10px; padding:8px 14px;">
         <span style="font-size:1rem;">${icon}</span>
         <div>
-          <div style="font-size:.88rem; font-weight:600; color:#fff;">${(m.nomeOnly ? m.nomeOnly + ' ' + (m.cognome || '') : m.nome).trim()}</div>
+          <div style="font-size:.88rem; font-weight:600; color:#fff;">${m.nome}</div>
           <div style="font-size:.7rem; color:rgba(255,255,255,.45); text-transform:uppercase; letter-spacing:.06em;">${ruolo || '—'}</div>
         </div>
       </div>`;
