@@ -295,6 +295,8 @@
         const saved = (() => { try { return JSON.parse(localStorage.getItem('crew_atlantica')) || []; } catch(e) { return []; } })();
         if (saved.length > 0) {
           saved.forEach(data => addMemberAndCount('atlantica', data));
+          const btn = document.getElementById('btnSalva-atlantica');
+          if (btn) btn.innerHTML = '✏️ Modifica i miei dati';
         } else {
           addMemberAndCount('atlantica');
         }
