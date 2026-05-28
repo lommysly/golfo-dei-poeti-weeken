@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Briefing Pre-Crociera — Golfo dei Poeti Weekend</title>
+  <link rel="stylesheet" href="styles.css?v=20260528i" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+  <style>
+    .brief-wrap { max-width: 1100px; margin: 0 auto; padding: 52px 20px 90px; }
+    .brief-hero { text-align: center; margin-bottom: 44px; }
+    .brief-hero .label { display: block; margin-bottom: 10px; color: var(--turq); font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+    .brief-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 300; margin-bottom: 12px; }
+    .brief-hero p { max-width: 680px; margin: 0 auto; color: rgba(255,255,255,.7); line-height: 1.7; }
+
+    .brief-grid { display: grid; gap: 22px; }
+    @media (min-width: 1000px) { .brief-grid { grid-template-columns: 1fr 1fr; } }
+
+    .brief-card {
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 22px;
+      overflow: hidden;
+    }
+    .brief-card-header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 18px 22px;
+      background: rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .brief-card-header .emoji { font-size: 1.6rem; }
+    .brief-card-header h2 { font-size: 1.15rem; font-weight: 700; color: #fff; }
+
+    .brief-body { padding: 22px 24px 26px; }
+    .brief-body h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600; color: var(--turq-light);
+      margin: 18px 0 10px;
+    }
+    .brief-body h3:first-child { margin-top: 0; }
+    .brief-body p { color: rgba(255,255,255,.78); line-height: 1.75; margin-bottom: 12px; }
+    .brief-body ul { margin: 8px 0 12px 18px; color: rgba(255,255,255,.75); line-height: 1.7; }
+    .brief-body li { margin-bottom: 6px; }
+    .brief-body strong { color: var(--turq-light); }
+    .brief-note {
+      margin-top: 14px; padding: 14px 16px;
+      background: rgba(28,167,168,.12); border-left: 3px solid var(--turq);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      font-size: .92rem; color: rgba(255,255,255,.75); line-height: 1.55;
+    }
+    .brief-warning {
+      margin-top: 14px; padding: 14px 16px;
+      background: rgba(239,68,68,.12); border-left: 3px solid #ef4444;
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      font-size: .92rem; color: rgba(255,255,255,.75); line-height: 1.55;
+    }
+    .brief-boat {
+      display: inline-block;
+      background: rgba(28,167,168,.15); border: 1px solid rgba(28,167,168,.35);
+      color: var(--turq-light); padding: 10px 18px; border-radius: 50px;
+      font-size: .9rem; font-weight: 600; margin-top: 14px;
+    }
+
+    .brief-full { grid-column: 1 / -1; }
+    @media (max-width: 1000px) { .brief-full { grid-column: auto; } }
+
+    /* Sezione foto */
+    .photo-placeholder {
+      margin: 16px 0;
+      padding: 40px 20px;
+      background: rgba(255,255,255,.03);
+      border: 2px dashed rgba(255,255,255,.15);
+      border-radius: 16px;
+      text-align: center;
+      color: rgba(255,255,255,.4);
+    }
+    .photo-placeholder .icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .photo-placeholder p { font-size: .85rem; margin: 0; }
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin: 16px 0;
+    }
+    .photo-grid .photo-placeholder { margin: 0; }
+
+    .checklist-ref {
+      margin-top: 28px; padding: 20px 22px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px; text-align: center;
+    }
+    .checklist-ref p { color: rgba(255,255,255,.65); margin-bottom: 14px; }
+    .checklist-ref a {
+      display: inline-block; background: var(--turq); color: #fff;
+      padding: 12px 22px; border-radius: 12px; font-weight: 700; text-decoration: none;
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><span class="logo-icon">—</span><span>Golfo dei Poeti Weekend</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#itinerario">Itinerario</a>
+      <a href="atlantica.html">Atlantica</a>
+      <a href="cambusa.html">Cambusa</a>
+      <a href="briefing.html">Briefing</a>
+      <a href="crewlist.html" class="nav-cta">Crew List</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="index.html#itinerario">Itinerario</a>
+    <a href="atlantica.html">Atlantica</a>
+    <a href="cambusa.html">Cambusa</a>
+    <a href="briefing.html">Briefing</a>
+    <a href="crewlist.html">Crew List</a>
+  </div>
+</nav>
+
+<main class="brief-wrap">
+  <div class="brief-hero">
+    <span class="label">Pre-Partenza · 27-29 Giugno 2026</span>
+    <h1>Briefing Pre-Crociera</h1>
+    <p>Tutto ciò che devi sapere prima di salire a bordo. Un racconto in presenza per prepararti a un weekend indimenticabile nel Golfo dei Poeti.</p>
+    <span class="brief-boat">⛵ Atlantica · Beneteau Oceanis 45 (2018)</span>
+  </div>
+
+  <div class="brief-grid">
+    <!-- VALIGIA E INFO -->
+    <article class="brief-card">
+      <div class="brief-card-header">
+        <span class="emoji">🧳</span>
+        <h2>Cosa Portare (e Cosa No)</h2>
+      </div>
+      <div class="brief-body">
+        <h3>🎒 Bagagli Morbidi = Spazio in Cabina</h3>
+        <p>Le <strong>valigie rigide</strong>, una volta svuotate, non trovano spazio a bordo. Gli armadietti dell'Oceanis 45 sono progettati per <strong>contenitori flessibili</strong>. Un sacco da viaggio morbido è l'ideale.</p>
+        
+        <div class="photo-placeholder">
+          <div class="icon">🖼️</div>
+          <p><strong>FOTO:</strong> Spazio armadietti cabina Atlantica<br><em>Mostrare come si stiva meglio con sacchi morbidi</em></p>
+        </div>
+
+        <h3>🌡️ Temperature Previste (Fine Giugno)</h3>
+        <ul>
+          <li>Aria: <strong>22°C min — 30°C max</strong></li>
+          <li>Acqua: <strong>23-26°C</strong> (ideale per bagni)</li>
+        </ul>
+
+        <h3>👕 Abbigliamento Essenziale</h3>
+        <ul>
+          <li>Costumi (2-3), bermuda, cappello, creme solari <strong>alta protezione</strong></li>
+          <li>Giacca leggera per la sera (si sta in rada)</li>
+          <li><strong>Scarpe da tennis con suola chiara/bianca</strong> — da usare SOLO a bordo durante la navigazione</li>
+        </ul>
+
+        <h3>🛏️ Dotazioni a Bordo</h3>
+        <div class="two-col">
+          <div>
+            <p><strong>✅ Incluso:</strong></p>
+            <ul>
+              <li>Set lenzuola/asciugamani</li>
+              <li>Cuscini e coperte base</li>
+            </ul>
+          </div>
+          <div>
+            <p><strong>❌ Da portare voi:</strong></p>
+            <ul>
+              <li>Teli da mare (obbligatori!)</li>
+              <li>Sacco a pelo (se freddolosi)</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>⚡ Elettricità 12V</h3>
+        <p>L'Atlantica eroga corrente a <strong>12 Volt</strong> (prese accendisigari). Portate <strong>caricabatterie 12V</strong> o power bank caricate a terra.</p>
+
+        <h3>💊 Salute</h3>
+        <p>Portate i vostri <strong>farmaci abituali</strong>. Comunicate al skipper <strong>in privato</strong> eventuali patologie o allergie alimentari.</p>
+        
+        <p class="brief-warning">⚠️ <strong>Mal di mare:</strong> se soggetti, prendete preventivo prima di salire. Una volta iniziato, è più difficile fermarlo.</p>
+      </div>
+    </article>
+
+    <!-- VITA A BORDO -->
+    <article class="brief-card">
+      <div class="brief-card-header">
+        <span class="emoji">⛵</span>
+        <h2>La Magia del Weekend in Barca</h2>
+      </div>
+      <div class="brief-body">
+        <h3>✨ Perché il Golfo dei Poeti è Speciale</h3>
+        <p>Porto Venere, Palmaria, Tino e Tinetto, Lerici, Tellaro. Un weekend in barca qui è <strong>magico</strong>: mare cristallino, borghi marinari, tramonti indimenticabili.</p>
+
+        <h3>🏠 Convivenza su Oceanis 45</h3>
+        <p>L'Atlantica è confortevole ma è sempre una <strong>casa condivisa</strong> su cui convivono 8-10 persone. Spazi comuni da mantenere in ordine, rispetto reciproco, comunicazione educata.</p>
+        
+        <p class="brief-note">✨ <strong>Il segreto:</strong> approcciatevi con tolleranza e curiosità. Il weekend passerà velocemente — meglio passarlo in armonia!</p>
+
+        <h3>🔇 Silenzio e Rispetto</h3>
+        <p>In rada, il <strong>silenzio è prezioso</strong> e obligatorio dopo le 23:00. Evitate musica ad alto volume. Il suono del mare e delle cicale è la colonna sonora perfetta.</p>
+
+        <h3>🧹 Ordine = Sicurezza</h3>
+        <p>Oggetti che rotolano in mare possono far scivolare. Il pozzetto deve restare libero. <strong>Tutto ciò che è aperto si rovescia</strong>: usate mollette e contenitori chiusi.</p>
+
+        <h3>🚿 Gestione Acqua (Weekend Breve)</h3>
+        <p>Serbatoi limitati, rifornimento complicato in rada. Docce brevi, sapone marino per i bagni in mare.</p>
+        
+        <p class="brief-note">🧼 <strong>Doccia marina:</strong> bagno in mare, sapone marino (biodegradabile!), risciacquo rapido con doccia solare in poppa. Ecologico e rinfrescante.</p>
+      </div>
+    </article>
+
+    <!-- SICUREZZA ESTESA -->
+    <article class="brief-card brief-full">
+      <div class="brief-card-header">
+        <span class="emoji">🦺</span>
+        <h2>Briefing di Sicurezza a Bordo (obbligatorio prima della partenza)</h2>
+      </div>
+      <div class="brief-body">
+        <p>Prima di lasciare Portovenere, facciamo un <strong>briefing di 15-20 minuti</strong>. È obbligo del comandante e diritto di ogni ospite. Parte sottocoperta, parte in coperta.</p>
+
+        <h3>1️⃣ Giubbotti di Salvataggio</h3>
+        <ul>
+          <li><strong>Dove sono:</strong> in ogni cabina (cassetto sotto letto o armadio)</li>
+          <li><strong>Come indossarli:</strong> cerniere, cinghie, regolazione collare</li>
+          <li><strong>Cordolo:</strong> il gancio per agganciarsi alla life line</li>
+        </ul>
+        <p class="brief-note">💡 <strong>Prova pratica:</strong> durante il briefing indosserete il giubbotto per familiarizzare. In emergenza, con fretta, è diverso.</p>
+
+        <div class="photo-grid">
+          <div class="photo-placeholder">
+            <div class="icon">🦺</div>
+            <p><strong>FOTO:</strong> Giubbotto stivato in cabina Atlantica</p>
+          </div>
+          <div class="photo-placeholder">
+            <div class="icon">🔗</div>
+            <p><strong>FOTO:</strong> Dettaglio life line in coperta</p>
+          </div>
+        </div>
+
+        <h3>2️⃣ Zattera di Salvataggio</h3>
+        <ul>
+          <li><strong>Posizione:</strong> sul ponte, contenitore arancione rigido</li>
+          <li><strong>Lancio:</strong> gettare in acqua, tirare sagola rossa</li>
+          <li><strong>CRITICO:</strong> la sagola deve essere <strong>assicurata alla barca</strong> prima di lanciare</li>
+        </ul>
+        <p class="brief-warning">⚠️ Errore fatale: lanciare zattera senza assicurarla = zattera che va via e barca che affonda.</p>
+
+        <h3>3️⃣ Asta Uomo a Mare</h3>
+        <p>Boa luminosa con bandierina. <strong>Posizione:</strong> pozzetto o pulpito di prua. Lanciare immediatamente se qualcuno cade in mare.</p>
+
+        <h3>4️⃣ Fuochi e Segnali</h3>
+        <ul>
+          <li><strong>Razzi rossi:</strong> emergenza immediata</li>
+          <li><strong>Boette fumogene arancioni:</strong> segnalazione posizione</li>
+          <li><strong>Lettorio:</strong> segnalazione notturna</li>
+        </ul>
+
+        <h3>5️⃣ Estintori</h3>
+        <ul>
+          <li><strong>Posizioni:</strong> cucina, pozzetto, corridoio</li>
+          <li><strong>Uso:</strong> P.A.S.S. — Pull, Aim, Squeeze, Sweep</li>
+        </ul>
+
+        <h3>6️⃣ Radio VHF Canale 16</h3>
+        <ul>
+          <li><strong>Accensione:</strong> tasto Power</li>
+          <li><strong>Chiamata:</strong> premere PTT (push-to-talk), parlare, rilasciare per ascoltare</li>
+          <li><strong>Canale 16:</strong> emergenze e chiamata generale</li>
+          <li><strong>Mayday:</strong> pericolo vita/morte</li>
+        </ul>
+
+        <h3>7️⃣ Procedura Uomo in Mare (MOB)</h3>
+        <ol>
+          <li><strong>GRIDARE</strong> "UOMO IN MARE!"</li>
+          <li><strong>Lanciare</strong> asta di uomo a mare</li>
+          <li><strong>Fissare</strong> la persona con lo sguardo (non perdere di vista)</li>
+          <li><strong>Comandante</strong> coordina manovra recupero</li>
+        </ol>
+
+        <h3>8️⃣ Cassetta Pronto Soccorso</h3>
+        <p><strong>Posizione:</strong> solitamente in bagno di prua o dinette. Contiene bende, cerotti, disinfettante, fogli alluminio.</p>
+
+        <h3>9️⃣ Testa (WC) — Istruzioni Vitali</h3>
+        <p class="brief-warning">⚠️ <strong>FONDAMENTALE:</strong> nel WC elettrico ELETTRICO <strong>SOLO materiale biologico</strong>. NIENTE carta igienica, assorbenti, cotton fioc. Tutto nel cestino!</p>
+        <ul>
+          <li>Pompare 3-4 secondi max</li>
+          <li>Se non scarica: NON insistere, chiamare skipper</li>
+          <li>Acqua salata sul pavimento = ruggine. Asciugare sempre.</li>
+        </ul>
+
+        <h3>🔟 Cucina a Gas — Sicurezza</h3>
+        <ul>
+          <li>Valvola gas: aprire solo quando si cucina, chiudere subito dopo</li>
+          <li>Non lasciare mai fiamma incustodita</li>
+          <li>Incendio grasso: MAI acqua — coprire con coperchio</li>
+        </ul>
+
+        <h3>1️⃣1️⃣ Movimenti a Bordo</h3>
+        <p class="brief-note">🙌 <strong>Regola d'oro:</strong> "Una mano per te, una per la barca" — tenetevi sempre!</p>
+        <ul>
+          <li>Sottocoperta: usare corrimani</li>
+          <li>Passare sotto boma: <strong>chinarsi sempre</strong></li>
+          <li>Non sedersi sui pulpiti in navigazione</li>
+          <li>Piedi nudi OK in coperta, scarpe con suola chiara in navigazione</li>
+        </ul>
+
+        <h3>1️⃣2️⃣ Oblò e Boccaporti</h3>
+        <p>In navigazione: <strong>SEMPRE CHIUSI</strong>. L'onda del motoscafo a 15 nodi entra e inonda cabine e dinette.</p>
+
+        <h3>1️⃣3️⃣ Motore e Navigazione</h3>
+        <p>L'Atlantica ha motore 75CV. Uso in porto, rade, emergenze. Non toccare comandi senza autorizzazione dello skipper.</p>
+
+        <h3>1️⃣4️⃣ Documenti Personali</h3>
+        <p><strong>Ognuno</strong> deve avere documento di riconoscimento valido. In caso di controlo Guardia Costiera, nessuno può garantire per altri.</p>
+
+        <p class="brief-note">🎯 Queste procedure sono standard su tutte le imbarcazioni. Il briefing protegge tutti — partecipate attivamente, chiedete se non capite.</p>
+      </div>
+    </article>
+
+    <!-- GOLFO DEI POETI SPECIFICO -->
+    <article class="brief-card brief-full">
+      <div class="brief-card-header">
+        <span class="emoji">🗺️</span>
+        <h2>Il Nostro Itinerario: Golfo dei Poeti</h2>
+      </div>
+      <div class="brief-body">
+        <p>Navigheremo in una delle zone più belle della Liguria, <strong>Patrimonio UNESCO</strong>.</p>
+        
+        <div class="two-col">
+          <div>
+            <h3>⛵ Porto Venere</h3>
+            <p>Partenza e rientro. Borgo medievale, Chiesa di San Pietro, case colorate.</p>
+            
+            <h3>🏝️ Palmaria, Tino, Tinetto</h3>
+            <p>Isole arcipelago con acque cristalline. Ancoraggio in rada protetta.</p>
+          </div>
+          <div>
+            <h3>⚓ Lerici e Tellaro</h3>
+            <p>Sulla riva di Levante. Tellaro è considerato uno dei borghi più belli d'Italia.</p>
+            
+            <h3>🌊 Rispetto Ambientale</h3>
+            <p>Parco naturale: ancorare solo zone consentite, niente rifiuti in mare, rispetto fauna marina.</p>
+          </div>
+        </div>
+
+        <div class="photo-placeholder">
+          <div class="icon">🗺️</div>
+          <p><strong>FOTO:</strong> Mappa itinerario con punti ancoraggio e tappe</p>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="checklist-ref">
+    <p>Per il check-in tecnico e la checklist completa delle dotazioni:</p>
+    <a href="checkin.html">Vai al Check-in Barca →</a>
+  </div>
+</main>
+
+<script src="script.js?v=20260528i"></script>
+</body>
+</html>
