@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sicurezza — Golfo dei Poeti Weekend</title>
+  <meta name="description" content="Regole di bordo, briefing di sicurezza e check-in tecnico per il weekend in barca a vela nel Golfo dei Poeti." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><span class="logo-icon">—</span><span>Golfo dei Poeti</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="esperienza.html">L'Esperienza</a>
+      <a href="organizzazione.html">Organizzazione</a>
+      <a href="sicurezza.html" class="active">Sicurezza</a>
+      <div class="dropdown" id="navDropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle">Strumenti <span style="font-size:.7em">▼</span></a>
+        <div class="dropdown-menu">
+          <a href="checkin.html">Check-in Barca</a>
+          <a href="inventario.html">Inventario</a>
+          <a href="meteo.html">Meteo Operativo</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="esperienza.html">L'Esperienza</a>
+    <a href="organizzazione.html">Organizzazione</a>
+    <a href="sicurezza.html" style="color:var(--turq);font-weight:700;">Sicurezza →</a>
+    <a href="regole.html">Regole di Bordo</a>
+    <a href="briefing.html">Briefing Pre-Crociera</a>
+    <a href="checkin.html">Check-in Barca</a>
+    <a href="inventario.html">Inventario</a>
+    <a href="meteo.html">Meteo</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('img/portovenere.jpg');background-color:#0b3c5d;"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <a href="index.html" class="back-link">← Torna alla Home</a>
+    <span class="label light">Protezione</span>
+    <h1 class="page-hero-title">Sicurezza</h1>
+    <p class="page-hero-sub">Regole di bordo, briefing di sicurezza e strumenti operativi. La tua responsabilità è anche la tua protezione.</p>
+  </div>
+</div>
+
+<div class="container" style="padding: 60px 20px 80px;">
+  <div class="section-header centered" style="margin-bottom:48px;">
+    <span class="label">Aree</span>
+    <h2 class="h2">Sicurezza a bordo</h2>
+    <p class="section-desc">Regole, briefing e strumenti per un weekend senza sorprese.</p>
+  </div>
+
+  <div class="regole-grid">
+    <a href="regole.html" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(239,68,68,.15);color:#f87171;">⚠️</div>
+      <h4>Regole di Bordo</h4>
+      <p>Le <strong>10 regole fondamentali</strong> per convivere in sicurezza: movimenti in coperta, scarpe, quiet zone, alcol, turni notturni e molto altro.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171;font-size:.72rem;font-weight:700;">Leggi le regole →</span>
+    </a>
+    <a href="briefing.html" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(42,159,214,.15);color:#60a5fa;">📋</div>
+      <h4>Briefing Pre-Crociera</h4>
+      <p>Il <strong>briefing obbligatorio</strong> prima di salpare: dotazioni di salvataggio, VHF, prevenzione incendi, movimenti, oblò e WC. Da leggere con attenzione.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(42,159,214,.1);border:1px solid rgba(42,159,214,.2);color:#60a5fa;font-size:.72rem;font-weight:700;">Vai al briefing →</span>
+    </a>
+    <a href="briefing.html#valigia" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(251,191,36,.15);color:#fbbf24;">🎒</div>
+      <h4>Cosa Portare</h4>
+      <p>La <strong>preparazione valigia</strong>: bagagli morbidi, scarpe giuste, temperature, elettricità 12V e i 4 principi smart packing.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fbbf24;font-size:.72rem;font-weight:700;">Preparati →</span>
+    </a>
+    <a href="checkin.html" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(52,211,153,.15);color:#6ee7b7;">🔐</div>
+      <h4>Check-in Tecnico Barca</h4>
+      <p>La <strong>checklist pre-partenza</strong> dedicata allo skipper: dotazioni, motori, sicurezza, carte nautiche. Accesso con password.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:#6ee7b7;font-size:.72rem;font-weight:700;">Riservato skipper →</span>
+    </a>
+    <a href="inventario.html" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(167,139,250,.15);color:#a78bfa;">📦</div>
+      <h4>Inventario Dotazioni</h4>
+      <p>L'<strong>inventario completo</strong> della barca: sicurezza, cucina, elettronica, cime, ancore e ore motore. Per lo skipper.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);color:#a78bfa;font-size:.72rem;font-weight:700;">Riservato skipper →</span>
+    </a>
+    <a href="meteo.html" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(56,189,248,.15);color:#38bdf8;">🌤️</div>
+      <h4>Meteo Operativo</h4>
+      <p>Il <strong>passage plan operativo</strong> con previsioni, temperatura acqua e consigli per l'equipaggio. Per skipper e naviganti.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:#38bdf8;font-size:.72rem;font-weight:700;">Controlla →</span>
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">Golfo dei Poeti Weekend</div>
+    <p>Weekend 26–28 Giugno 2026</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="esperienza.html">L'Esperienza</a>
+      <a href="organizzazione.html">Organizzazione</a>
+      <a href="sicurezza.html">Sicurezza</a>
+      <a href="valigia.html">Valigia</a>
+      <a href="cambusa.html">Cambusa</a>
+      <a href="checkin.html">Check-in</a>
+    </div>
+    <p class="footer-copy">© 2026 Golfo dei Poeti Weekend · Tutti i diritti riservati</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

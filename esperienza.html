@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Esperienza — Golfo dei Poeti Weekend</title>
+  <meta name="description" content="Il weekend in barca a vela nel Golfo dei Poeti. Itinerario, calette, la barca Atlantica e meteo." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><span class="logo-icon">—</span><span>Golfo dei Poeti</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="esperienza.html" class="active">L'Esperienza</a>
+      <a href="organizzazione.html">Organizzazione</a>
+      <a href="sicurezza.html">Sicurezza</a>
+      <div class="dropdown" id="navDropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle">Strumenti <span style="font-size:.7em">▼</span></a>
+        <div class="dropdown-menu">
+          <a href="checkin.html">Check-in Barca</a>
+          <a href="inventario.html">Inventario</a>
+          <a href="meteo.html">Meteo Operativo</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="esperienza.html" style="color:var(--turq);font-weight:700;">L'Esperienza →</a>
+    <a href="organizzazione.html">Organizzazione</a>
+    <a href="sicurezza.html">Sicurezza</a>
+    <a href="rotta.html">Itinerario</a>
+    <a href="atlantica.html">La Barca</a>
+    <a href="meteo.html">Meteo</a>
+    <a href="index.html#calette">Calette</a>
+    <a href="checkin.html">Check-in Barca</a>
+    <a href="inventario.html">Inventario</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('img/portovenere.jpg');background-color:#0b3c5d;"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <a href="index.html" class="back-link">← Torna alla Home</a>
+    <span class="label light">Il Viaggio</span>
+    <h1 class="page-hero-title">L'Esperienza</h1>
+    <p class="page-hero-sub">Tre giorni nel Golfo dei Poeti. Calette nascoste, tramonti mozzafiato e la magia della vita in barca.</p>
+  </div>
+</div>
+
+<div class="container" style="padding: 60px 20px 80px;">
+  <div class="section-header centered" style="margin-bottom:48px;">
+    <span class="label">Scopri</span>
+    <h2 class="h2">Il tuo weekend nel Golfo</h2>
+    <p class="section-desc">Itinerario, calette, la barca e il meteo. Tutto quello che renderà indimenticabile questa esperienza.</p>
+  </div>
+
+  <div class="regole-grid">
+    <a href="rotta.html" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(28,167,168,.15);color:var(--turq-light);">🗺️</div>
+      <h4>Itinerario &amp; Rotta</h4>
+      <p>Il <strong>percorso giorno per giorno</strong>: tappe, distanze in miglia, tempi di navigazione, sole/luna e turni di guardia. Il passage plan completo.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(28,167,168,.12);border:1px solid rgba(28,167,168,.25);color:var(--turq-light);font-size:.72rem;font-weight:700;">Vedi rotta →</span>
+    </a>
+    <a href="index.html#calette" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(251,191,36,.15);color:#fbbf24;">🏖️</div>
+      <h4>Le Calette</h4>
+      <p>Le <strong>spiagge nascoste</strong> raggiungibili solo via mare: Cala del Terrizzo, Fornace, Pozzale, Maramozza. Acque cristalline e zero folla.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fbbf24;font-size:.72rem;font-weight:700;">Esplora →</span>
+    </a>
+    <a href="atlantica.html" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(52,211,153,.15);color:#6ee7b7;">⛵</div>
+      <h4>La Barca — Atlantica</h4>
+      <p>Beneteau <strong>Oceanis 45 (2018)</strong>: 4 cabine doppie, 13.9 metri, tender incluso. Le foto, le specs e la piantina della tua casa per 3 giorni.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:#6ee7b7;font-size:.72rem;font-weight:700;">Conosci Atlantica →</span>
+    </a>
+    <a href="meteo.html" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(167,139,250,.15);color:#a78bfa;">🌤️</div>
+      <h4>Meteo &amp; Passage Plan</h4>
+      <p>Le <strong>previsioni per il weekend</strong>, la temperatura dell'acqua e il passage plan operativo con consigli per l'equipaggio.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);color:#a78bfa;font-size:.72rem;font-weight:700;">Controlla meteo →</span>
+    </a>
+    <a href="briefing.html#vita-bordo" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(248,113,113,.15);color:#f87171;">🌅</div>
+      <h4>La Magia del Weekend</h4>
+      <p>La <strong>convivenza in barca</strong>: doccia da marinaio, risparmio idrico, musica, silenzio e stelle. La vita che solo la barca sa regalare.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#f87171;font-size:.72rem;font-weight:700;">Leggi →</span>
+    </a>
+    <a href="index.html#galleria" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(56,189,248,.15);color:#38bdf8;">📸</div>
+      <h4>Galleria</h4>
+      <p>Le <strong>foto del Golfo dei Poeti</strong>: Palmaria, Portovenere, Lerici, il tramonto in navigazione. Un assaggio di ciò che ti aspetta.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:#38bdf8;font-size:.72rem;font-weight:700;">Guarda →</span>
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">Golfo dei Poeti Weekend</div>
+    <p>Weekend 26–28 Giugno 2026</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="esperienza.html">L'Esperienza</a>
+      <a href="organizzazione.html">Organizzazione</a>
+      <a href="sicurezza.html">Sicurezza</a>
+      <a href="valigia.html">Valigia</a>
+      <a href="cambusa.html">Cambusa</a>
+      <a href="checkin.html">Check-in</a>
+    </div>
+    <p class="footer-copy">© 2026 Golfo dei Poeti Weekend · Tutti i diritti riservati</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Organizzazione — Golfo dei Poeti Weekend</title>
+  <meta name="description" content="Tutto quello che devi sapere per organizzare il tuo weekend in barca a vela nel Golfo dei Poeti." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="nav scrolled" id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="index.html"><span class="logo-icon">—</span><span>Golfo dei Poeti</span></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="esperienza.html">L'Esperienza</a>
+      <a href="organizzazione.html" class="active">Organizzazione</a>
+      <a href="sicurezza.html">Sicurezza</a>
+      <div class="dropdown" id="navDropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle">Strumenti <span style="font-size:.7em">▼</span></a>
+        <div class="dropdown-menu">
+          <a href="checkin.html">Check-in Barca</a>
+          <a href="inventario.html">Inventario</a>
+          <a href="meteo.html">Meteo Operativo</a>
+        </div>
+      </div>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Home</a>
+    <a href="esperienza.html">L'Esperienza</a>
+    <a href="organizzazione.html" style="color:var(--turq);font-weight:700;">Organizzazione →</a>
+    <a href="sicurezza.html">Sicurezza</a>
+    <a href="valigia.html">Valigia Intelligente</a>
+    <a href="cambusa.html">Cambusa</a>
+    <a href="atlantica.html#crewlist">Crew List</a>
+    <a href="checkin.html">Check-in Barca</a>
+    <a href="inventario.html">Inventario</a>
+    <a href="meteo.html">Meteo</a>
+    <a href="rotta.html">Rotta</a>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('img/atlantica.jpg');background-color:#0b3c5d;"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <a href="index.html" class="back-link">← Torna alla Home</a>
+    <span class="label light">Preparazione</span>
+    <h1 class="page-hero-title">Organizzazione</h1>
+    <p class="page-hero-sub">Tutto quello che devi fare prima e durante il weekend. Checklist, liste e pratiche.</p>
+  </div>
+</div>
+
+<div class="container" style="padding: 60px 20px 80px;">
+  <div class="section-header centered" style="margin-bottom:48px;">
+    <span class="label">Aree</span>
+    <h2 class="h2">Cosa ti serve organizzare</h2>
+    <p class="section-desc">Dalla valigia alla crew list, tutto a portata di click.</p>
+  </div>
+
+  <div class="regole-grid">
+    <a href="valigia.html" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(28,167,168,.15);color:var(--turq-light);">🎒</div>
+      <h4>Valigia Intelligente</h4>
+      <p>La <strong>checklist interattiva</strong> completa: cosa mettere in valigia, principi smart packing, tracciamento progresso. Spunta mentre prepari.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(28,167,168,.12);border:1px solid rgba(28,167,168,.25);color:var(--turq-light);font-size:.72rem;font-weight:700;">Checklist interattiva →</span>
+    </a>
+    <a href="briefing.html#valigia" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(251,191,36,.15);color:#fbbf24;">📋</div>
+      <h4>Cosa Portare</h4>
+      <p>Le <strong>regole d'oro</strong> del packing per la barca: bagagli morbidi, scarpe giuste, temperature, 12V. Con i 4 principi smart packing.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fbbf24;font-size:.72rem;font-weight:700;">Leggi le regole →</span>
+    </a>
+    <a href="cambusa.html" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(52,211,153,.15);color:#6ee7b7;">🛒</div>
+      <h4>Cambusa</h4>
+      <p>La <strong>lista della spesa condivisa</strong> per l'equipaggio. Spunta gli oggetti, sincronizza con il foglio Google, dividi le spese.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2);color:#6ee7b7;font-size:.72rem;font-weight:700;">Lista spesa →</span>
+    </a>
+    <a href="atlantica.html#crewlist" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(167,139,250,.15);color:#a78bfa;">👥</div>
+      <h4>Crew List</h4>
+      <p>Compila il <strong>modulo equipaggio</strong> per il charter: dati anagrafici, documenti, contatti. Scarica il PDF da consegnare in porto.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.2);color:#a78bfa;font-size:.72rem;font-weight:700;">Compila ora →</span>
+    </a>
+    <a href="index.html#quota" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(248,113,113,.15);color:#f87171;">💶</div>
+      <h4>Pagamenti</h4>
+      <p><strong>€330 a persona</strong>: €300 bonifico + €30 contanti. IBAN, causale e dettagli quote incluso/non incluso.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.2);color:#f87171;font-size:.72rem;font-weight:700;">Vedi quote →</span>
+    </a>
+    <a href="index.html#contatti" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+      <div class="rc-icon" style="background:rgba(56,189,248,.15);color:#38bdf8;">📞</div>
+      <h4>Contatti</h4>
+      <p>WhatsApp dello skipper, indirizzo del porto, orari check-in/check-out. Tutto per contattarci prima della partenza.</p>
+      <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2);color:#38bdf8;font-size:.72rem;font-weight:700;">Info contatti →</span>
+    </a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">Golfo dei Poeti Weekend</div>
+    <p>Weekend 26–28 Giugno 2026</p>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="esperienza.html">L'Esperienza</a>
+      <a href="organizzazione.html">Organizzazione</a>
+      <a href="sicurezza.html">Sicurezza</a>
+      <a href="valigia.html">Valigia</a>
+      <a href="cambusa.html">Cambusa</a>
+      <a href="checkin.html">Check-in</a>
+    </div>
+    <p class="footer-copy">© 2026 Golfo dei Poeti Weekend · Tutti i diritti riservati</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

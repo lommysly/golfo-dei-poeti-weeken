@@ -32,32 +32,29 @@
         <span>Golfo dei Poeti</span>
       </a>
       <div class="nav-links">
-        <a href="#quota">Quote</a>
-        <a href="#itinerario">Itinerario</a>
-        <a href="#barche">La Barca</a>
-        <a href="#contatti">Info</a>
-        <span class="nav-divider"></span>
-        <a href="regole.html">Regole</a>
-        <a href="briefing.html">Briefing</a>
-        <a href="cambusa.html">Cambusa</a>
-        <a href="atlantica.html#crewlist">Crew List</a>
-        <a href="meteo.html">Meteo</a>
-        <a href="rotta.html">Rotta</a>
-        <span class="nav-divider"></span>
-        <a href="checkin.html">Check-in</a>
-        <a href="inventario.html">Inventario</a>
+        <a href="index.html" class="active">Home</a>
+        <a href="esperienza.html">L'Esperienza</a>
+        <a href="organizzazione.html">Organizzazione</a>
+        <a href="sicurezza.html">Sicurezza</a>
+        <div class="dropdown" id="navDropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle">Strumenti <span style="font-size:.7em">▼</span></a>
+          <div class="dropdown-menu">
+            <a href="checkin.html">Check-in Barca</a>
+            <a href="inventario.html">Inventario</a>
+            <a href="meteo.html">Meteo Operativo</a>
+          </div>
+        </div>
       </div>
       <button class="nav-burger" id="navBurger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
     <div class="nav-mobile" id="navMobile">
-      <a href="#quota">Quote</a>
-      <a href="#itinerario">Itinerario</a>
-      <a href="#barche">La Barca</a>
-      <a href="#contatti">Info</a>
-      <a href="regole.html">Regole</a>
-      <a href="briefing.html">Briefing</a>
+      <a href="index.html" style="color:var(--turq);font-weight:700;">Home →</a>
+      <a href="esperienza.html">L'Esperienza</a>
+      <a href="organizzazione.html">Organizzazione</a>
+      <a href="sicurezza.html">Sicurezza</a>
+      <a href="valigia.html">Valigia Intelligente</a>
       <a href="cambusa.html">Cambusa</a>
       <a href="atlantica.html#crewlist">Crew List</a>
       <a href="meteo.html">Meteo</a>
@@ -136,6 +133,37 @@
       <div class="scroll-indicator">
         <div class="scroll-mouse"><div class="scroll-dot"></div></div>
         <span>Scorri</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 AREE -->
+  <section style="padding: 80px 0; background: var(--bg-light);">
+    <div class="container">
+      <div class="section-header centered" style="margin-bottom: 48px;">
+        <span class="label">Esplora</span>
+        <h2 class="h2">Il tuo weekend in 3 aree</h2>
+        <p class="section-desc">Tutto quello che ti serve, organizzato in modo chiaro e intuitivo.</p>
+      </div>
+      <div class="regole-grid">
+        <a href="esperienza.html" class="regola-card reveal-up" style="text-decoration:none;display:block;color:inherit;">
+          <div class="rc-icon" style="background:rgba(28,167,168,.15);color:var(--turq-light);">🌅</div>
+          <h4>L'Esperienza</h4>
+          <p>Il <strong>sogno</strong>: itinerario, calette, la barca Atlantica, meteo e galleria. Scopri cosa ti aspetta nel Golfo dei Poeti.</p>
+          <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(28,167,168,.12);border:1px solid rgba(28,167,168,.25);color:var(--turq-light);font-size:.72rem;font-weight:700;">Scopri il viaggio →</span>
+        </a>
+        <a href="organizzazione.html" class="regola-card reveal-up d1" style="text-decoration:none;display:block;color:inherit;">
+          <div class="rc-icon" style="background:rgba(251,191,36,.15);color:#fbbf24;">🎒</div>
+          <h4>Organizzazione</h4>
+          <p>La <strong>pratica</strong>: valigia intelligente, cambusa, crew list, pagamenti e contatti. Tutto quello che devi fare prima di salpare.</p>
+          <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);color:#fbbf24;font-size:.72rem;font-weight:700;">Organizza tutto →</span>
+        </a>
+        <a href="sicurezza.html" class="regola-card reveal-up d2" style="text-decoration:none;display:block;color:inherit;">
+          <div class="rc-icon" style="background:rgba(239,68,68,.15);color:#f87171;">⚓</div>
+          <h4>Sicurezza</h4>
+          <p>La <strong>protezione</strong>: regole di bordo, briefing pre-crociera, check-in tecnico e inventario. La sicurezza è responsabilità di tutti.</p>
+          <span style="display:inline-block;margin-top:10px;padding:4px 10px;border-radius:20px;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:#f87171;font-size:.72rem;font-weight:700;">Leggi le regole →</span>
+        </a>
       </div>
     </div>
   </section>
