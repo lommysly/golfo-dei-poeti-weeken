@@ -561,7 +561,7 @@ function generateCrewPDF(members, boatName, departureDate, arrivalDate) {
   <div class="doc-header">
     <div class="doc-title">
       <h1>CREW LIST — LISTA EQUIPAGGIO</h1>
-      <p>Golfo dei Poeti Weekend · Porto Mirabello, La Spezia · 27–29 Giugno 2026</p>
+      <p>Golfo dei Poeti Weekend · Porto Mirabello, La Spezia · 26–27 Giugno 2026</p>
     </div>
     <div class="doc-flag">🇮🇹</div>
   </div>
