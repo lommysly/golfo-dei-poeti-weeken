@@ -360,7 +360,7 @@ body {
 
 /* ──────────────────── QUOTA ──────────────────── */
 .quota { padding: 80px 0; background: var(--bg-light); }
-.quota-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 0; }
+.quota-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 0; }
 .quota-card {
   border-radius: var(--r-lg); padding: 36px 32px;
   box-shadow: var(--sh-card);
@@ -375,6 +375,12 @@ body {
   border: 1px solid rgba(11,60,93,.1);
   border-top: 4px solid var(--ocean);
 }
+.quota-card.pasti {
+  background: #fff;
+  border: 1px solid rgba(232,200,122,.25);
+  border-top: 4px solid var(--gold);
+}
+.pasti .quota-card-title { color: var(--gold); }
 .quota-card-title {
   font-size: .72rem; font-weight: 800; text-transform: uppercase;
   letter-spacing: .12em; margin-bottom: 20px;
