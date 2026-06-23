@@ -74,7 +74,7 @@ if (burger && mobileNav) {
 }
 
 /* ── Countdown ──────────────────────────────────── */
-const DEPARTURE = new Date('2026-06-27T17:00:00+02:00').getTime();
+const DEPARTURE = new Date('2026-06-26T17:00:00+02:00').getTime();
 function updateCountdown() {
   const cdDays  = document.getElementById('cdDays');
   if (!cdDays) return;
@@ -561,7 +561,7 @@ function generateCrewPDF(members, boatName, departureDate, arrivalDate) {
   <div class="doc-header">
     <div class="doc-title">
       <h1>CREW LIST — LISTA EQUIPAGGIO</h1>
-      <p>Golfo dei Poeti Weekend · Porto Mirabello, La Spezia · 26–27 Giugno 2026</p>
+      <p>Golfo dei Poeti Weekend · Porto Mirabello, La Spezia · 26–28 Giugno 2026</p>
     </div>
     <div class="doc-flag">🇮🇹</div>
   </div>
